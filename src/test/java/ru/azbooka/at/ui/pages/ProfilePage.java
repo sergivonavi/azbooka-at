@@ -6,7 +6,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static ru.azbooka.at.utils.BrowserUtils.open;
 
 public class ProfilePage extends BasePage {
     private final SelenideElement pageHeader = $x("//h2");
