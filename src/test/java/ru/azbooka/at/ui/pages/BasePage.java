@@ -21,9 +21,36 @@ public class BasePage {
                 .click();
     }
 
+    @Step("Нажимаем кнопку выхода")
+    public void clickSignOutButton() {
+        signOutButton
+                .should(exist)
+                .click();
+    }
+
+    @Step("Проверяем, что кнопка \"Вход\" отображается")
+    public BasePage shouldHaveLoginButton() {
+        loginButton
+                .shouldBe(visible)
+                .shouldHave(text("Вход"));
+        return this;
+    }
+
+    @Step("Проверяем, что ссылка на страницу профиля не отображается")
+    public BasePage shouldNotHaveProfileLink() {
+        profileLink.shouldNot(exist);
+        return this;
+    }
+
     @Step("Проверяем, что ссылка на страницу профиля отображается")
     public BasePage shouldHaveProfileLink() {
         profileLink.shouldBe(visible);
+        return this;
+    }
+
+    @Step("Проверяем, что кнопка выхода не отображается")
+    public BasePage shouldNotHaveSignOutButton() {
+        signOutButton.shouldNot(exist);
         return this;
     }
 
