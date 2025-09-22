@@ -3,7 +3,7 @@ package ru.azbooka.at.api.specs;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import ru.azbooka.at.utils.report.AllureListener;
+import ru.azbooka.at.utils.allure.report.AllureListener;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.filter.log.LogDetail.ALL;

@@ -1,9 +1,17 @@
 package ru.azbooka.at.tests.ui.profile;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import ru.azbooka.at.api.endpoints.auth.LoginApi;
 import ru.azbooka.at.api.models.LoginResponseDto;
@@ -13,6 +21,8 @@ import ru.azbooka.at.data.UserTestData;
 import ru.azbooka.at.extensions.WithLogin;
 import ru.azbooka.at.tests.BaseTest;
 import ru.azbooka.at.ui.pages.ProfilePage;
+import ru.azbooka.at.utils.allure.annotations.Layer;
+import ru.azbooka.at.utils.allure.annotations.Microservice;
 
 import static ru.azbooka.at.api.endpoints.auth.UserApi.updateUser;
 import static ru.azbooka.at.data.UserTestData.DEFAULT_FIRST_NAME;
@@ -22,7 +32,14 @@ import static ru.azbooka.at.data.UserTestData.getRandomFirstName;
 import static ru.azbooka.at.data.UserTestData.getRandomLastName;
 import static ru.azbooka.at.ui.steps.CommonSteps.refreshPage;
 
-@DisplayName("Информация о пользователе")
+@Owner("sergivonavi")
+@Layer("ui")
+@Microservice("UserService")
+@Tag("ui")
+@Epic("Пользователи")
+@Feature("Профиль пользователя")
+@Story("Просмотр и редактирование информации о пользователе через UI")
+@DisplayName("UI: Информация о пользователе")
 public class UserProfileUITests extends BaseTest {
     private final TestUserConfig userConfig = ConfigFactory.create(TestUserConfig.class);
     private final ProfilePage profilePage = new ProfilePage();
@@ -52,9 +69,11 @@ public class UserProfileUITests extends BaseTest {
         updateUser(token, requestDto);
     }
 
+    @Tags({@Tag("regress"), @Tag("smoke")})
     @Test
     @WithLogin
     @DisplayName("Отображение информации в профиле с загруженным аватаром")
+    @Severity(SeverityLevel.NORMAL)
     void checkProfileInfoTest() {
         profilePage
                 .openPage()
@@ -66,9 +85,11 @@ public class UserProfileUITests extends BaseTest {
                 .shouldHaveAvatar();
     }
 
+    @Tag("regress")
     @Test
     @WithLogin
     @DisplayName("Изменение информации в профиле с загрузкой аватара")
+    @Severity(SeverityLevel.NORMAL)
     void updateProfileInfoTest() {
         String newFirstName = getRandomFirstName();
         String newLastName = getRandomLastName();
