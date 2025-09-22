@@ -73,9 +73,9 @@ public class AddFavoritesUITests extends BaseTest {
                 .clickAddFavoriteButton();
 
         bookPage
+                .verifyFavoritesCounterValue(1)
                 .shouldHaveDeleteFavoriteButton()
-                .shouldNotHaveAddFavoriteButton()
-                .verifyFavoritesCounterValue(1);
+                .shouldNotHaveAddFavoriteButton();
 
         favoritesPage
                 .openPage()
@@ -96,8 +96,8 @@ public class AddFavoritesUITests extends BaseTest {
 
         bookPage
                 .openPage(codeToAdd)
-                .verifyFavoritesCounterValue(list.size());
-        bookPage.clickAddFavoriteButton();
+                .verifyFavoritesCounterValue(list.size())
+                .clickAddFavoriteButton();
 
         bookPage
                 .shouldHaveDeleteFavoriteButton()

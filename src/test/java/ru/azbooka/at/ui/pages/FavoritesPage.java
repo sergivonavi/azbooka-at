@@ -19,7 +19,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static io.qameta.allure.Allure.step;
 import static ru.azbooka.at.utils.BrowserUtils.open;
 
-public class FavoritesPage extends BasePage {
+public class FavoritesPage extends BasePage<FavoritesPage> {
     private final SelenideElement pageHeader = $x("//h3");
     private final SelenideElement booksList = $x("//h2[text()='Книги']/following-sibling::ul");
 
