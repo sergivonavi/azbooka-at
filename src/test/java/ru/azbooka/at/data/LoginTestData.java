@@ -1,7 +1,19 @@
 package ru.azbooka.at.data;
 
+import net.datafaker.Faker;
+
 public class LoginTestData {
-    public static final String DATA_INVALID_EMAIL = "email_tho489014u5io@example.com";
-    public static final String DATA_INVALID_PASSWORD = "pass_iO871_234";
-    public static final String DATA_INVALID_TOKEN = "3i4u909efid9-fsi]fi9305dfksd";
+    private static final Faker faker = new Faker();
+
+    public static String getRandomEmail() {
+        return faker.internet().emailAddress();
+    }
+
+    public static String getRandomPassword() {
+        return faker.credentials().password(8, 16);
+    }
+
+    public static String getRandomToken() {
+        return faker.hashing().sha256();
+    }
 }

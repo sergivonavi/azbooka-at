@@ -15,11 +15,11 @@ import ru.azbooka.at.tests.BaseTest;
 import ru.azbooka.at.ui.pages.ProfilePage;
 
 import static ru.azbooka.at.api.endpoints.auth.UserApi.updateUser;
-import static ru.azbooka.at.data.UserTestData.AVATAR;
 import static ru.azbooka.at.data.UserTestData.DEFAULT_FIRST_NAME;
 import static ru.azbooka.at.data.UserTestData.DEFAULT_LAST_NAME;
-import static ru.azbooka.at.data.UserTestData.FIRST_NAME;
-import static ru.azbooka.at.data.UserTestData.LAST_NAME;
+import static ru.azbooka.at.data.UserTestData.getRandomAvatar;
+import static ru.azbooka.at.data.UserTestData.getRandomFirstName;
+import static ru.azbooka.at.data.UserTestData.getRandomLastName;
 import static ru.azbooka.at.ui.steps.CommonSteps.refreshPage;
 
 @DisplayName("Информация о пользователе")
@@ -70,18 +70,22 @@ public class UserProfileUITests extends BaseTest {
     @WithLogin
     @DisplayName("Изменение информации в профиле с загрузкой аватара")
     void updateProfileInfoTest() {
+        String newFirstName = getRandomFirstName();
+        String newLastName = getRandomLastName();
+        String newAvatar = getRandomAvatar();
+
         profilePage
                 .openPage()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .uploadAvatar(AVATAR)
+                .setFirstName(newFirstName)
+                .setLastName(newLastName)
+                .uploadAvatar(newAvatar)
                 .clickSubmitButton();
 
         refreshPage();
 
         profilePage
-                .shouldHaveFirstName(FIRST_NAME)
-                .shouldHaveLastName(LAST_NAME)
+                .shouldHaveFirstName(newFirstName)
+                .shouldHaveLastName(newLastName)
                 .shouldHaveEmail(userConfig.email())
                 .shouldHaveEmptyPassword()
                 .shouldHaveEmptyPassword2()

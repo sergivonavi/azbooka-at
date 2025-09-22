@@ -22,12 +22,11 @@ import static ru.azbooka.at.api.assertions.UserAssertions.assertLastName;
 import static ru.azbooka.at.api.assertions.UserAssertions.assertUsername;
 import static ru.azbooka.at.api.endpoints.auth.UserApi.getUser;
 import static ru.azbooka.at.api.endpoints.auth.UserApi.updateUser;
-import static ru.azbooka.at.data.UserTestData.AVATAR;
 import static ru.azbooka.at.data.UserTestData.DEFAULT_AVATAR;
 import static ru.azbooka.at.data.UserTestData.DEFAULT_FIRST_NAME;
 import static ru.azbooka.at.data.UserTestData.DEFAULT_LAST_NAME;
-import static ru.azbooka.at.data.UserTestData.FIRST_NAME;
-import static ru.azbooka.at.data.UserTestData.LAST_NAME;
+import static ru.azbooka.at.data.UserTestData.getRandomFirstName;
+import static ru.azbooka.at.data.UserTestData.getRandomLastName;
 
 @DisplayName("Информация о пользователе")
 public class UserApiTests extends BaseTest {
@@ -71,18 +70,18 @@ public class UserApiTests extends BaseTest {
     @Test
     @DisplayName("Изменение информации о текущем пользователе без загрузки аватара")
     void updateUserTest() {
-        UserResponseDto initialUserResponseDto = getUser(token);
+        String newFirstName = getRandomFirstName();
+        String newLastName = getRandomLastName();
 
-        UpdateUserRequestDto requestDto = buildUpdateUserRequestDto(FIRST_NAME, LAST_NAME, AVATAR);
+        UpdateUserRequestDto requestDto = buildUpdateUserRequestDto(newFirstName, newLastName, null);
 
         UpdateUserResponseDto responseDto = updateUser(token, requestDto);
         UserResponseDto userResponseDto = responseDto.getUser();
 
         assertUsername(userResponseDto, userConfig.email());
         assertEmail(userResponseDto, userConfig.email());
-        assertFirstName(userResponseDto, FIRST_NAME);
-        assertLastName(userResponseDto, LAST_NAME);
-        assertAvatarChanged(userResponseDto, initialUserResponseDto.getAvatar());
+        assertFirstName(userResponseDto, newFirstName);
+        assertLastName(userResponseDto, newLastName);
     }
 
     @ParameterizedTest(name = "{0}")

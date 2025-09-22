@@ -8,7 +8,6 @@ import ru.azbooka.at.api.models.LoginResponseDto;
 import ru.azbooka.at.api.models.error.ErrorResponseDto;
 import ru.azbooka.at.api.models.error.ValidationErrorResponseDto;
 import ru.azbooka.at.config.TestUserConfig;
-import ru.azbooka.at.data.LoginTestData;
 import ru.azbooka.at.tests.BaseTest;
 
 import static ru.azbooka.at.api.assertions.LoginAssertions.assertAccessTokenIsNotNullOrEmpty;
@@ -21,6 +20,8 @@ import static ru.azbooka.at.api.endpoints.auth.LoginApi.login;
 import static ru.azbooka.at.api.endpoints.auth.LoginApi.loginWithIncorrectCredentials;
 import static ru.azbooka.at.api.endpoints.auth.LoginApi.loginWithInvalidBody;
 import static ru.azbooka.at.api.endpoints.auth.LoginApi.loginWithoutBody;
+import static ru.azbooka.at.data.LoginTestData.getRandomEmail;
+import static ru.azbooka.at.data.LoginTestData.getRandomPassword;
 
 @Owner("sergivonavi")
 @DisplayName("Авторизация в системе")
@@ -40,10 +41,7 @@ public class LoginApiTests extends BaseTest {
     @Test
     @DisplayName("Авторизация с несуществующим логином через API")
     void loginWithInvalidUsernameTest() {
-        ErrorResponseDto responseDto = loginWithIncorrectCredentials(
-                LoginTestData.DATA_INVALID_EMAIL,
-                userConfig.password()
-        );
+        ErrorResponseDto responseDto = loginWithIncorrectCredentials(getRandomEmail(), userConfig.password());
 
         assertErrorDetail(responseDto, INVALID_CREDENTIALS);
     }
@@ -51,10 +49,7 @@ public class LoginApiTests extends BaseTest {
     @Test
     @DisplayName("Авторизация с неправильным паролем через API")
     void loginWithInvalidPasswordTest() {
-        ErrorResponseDto responseDto = loginWithIncorrectCredentials(
-                userConfig.email(),
-                LoginTestData.DATA_INVALID_PASSWORD
-        );
+        ErrorResponseDto responseDto = loginWithIncorrectCredentials(userConfig.email(), getRandomPassword());
 
         assertErrorDetail(responseDto, INVALID_CREDENTIALS);
     }

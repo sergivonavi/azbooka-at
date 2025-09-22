@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import ru.azbooka.at.api.endpoints.auth.LoginApi;
 import ru.azbooka.at.api.models.FavoritesResponseDto;
 import ru.azbooka.at.api.models.LoginResponseDto;
-import ru.azbooka.at.data.BooksTestData;
 import ru.azbooka.at.extensions.WithLogin;
 import ru.azbooka.at.tests.BaseTest;
 import ru.azbooka.at.ui.pages.BookPage;
@@ -23,6 +22,7 @@ import static ru.azbooka.at.api.endpoints.favorites.FavoritesApi.addFavorite;
 import static ru.azbooka.at.api.endpoints.favorites.FavoritesApi.getFavorites;
 import static ru.azbooka.at.api.helpers.FavoritesApiHelper.addListToFavorites;
 import static ru.azbooka.at.api.helpers.FavoritesApiHelper.deleteAllFavorites;
+import static ru.azbooka.at.data.BooksTestData.BOOKS_TOTAL;
 import static ru.azbooka.at.data.BooksTestData.getRandomBookCode;
 import static ru.azbooka.at.data.BooksTestData.getRandomBookCodeIn;
 import static ru.azbooka.at.data.BooksTestData.getRandomBookCodes;
@@ -73,7 +73,7 @@ public class DeleteFavoritesUITests extends BaseTest {
     @WithLogin
     @DisplayName("Удаление книги из закладок на странице книги, когда в списке закладок несколько книг")
     void deleteFavoriteOnBookPageWhenListContainsSeveralBooksTest() {
-        List<String> initialList = getRandomBookCodes(2, BooksTestData.BOOKS_TOTAL);
+        List<String> initialList = getRandomBookCodes(2, BOOKS_TOTAL);
         String codeToDelete = getRandomBookCodeIn(initialList);
         List<String> expectedList = new ArrayList<>(initialList);
         expectedList.remove(codeToDelete);
@@ -115,7 +115,7 @@ public class DeleteFavoritesUITests extends BaseTest {
     @WithLogin
     @DisplayName("Удаление книги из закладок на странице \"Закладки\", когда в списке закладок несколько книг")
     void deleteFavoriteOnFavoritesPageWhenListContainsSeveralBooksTest() {
-        List<String> initialList = getRandomBookCodes(1, BooksTestData.BOOKS_TOTAL);
+        List<String> initialList = getRandomBookCodes(2, BOOKS_TOTAL);
         String codeToDelete = getRandomBookCodeIn(initialList);
         List<String> expectedList = new ArrayList<>(initialList);
         expectedList.remove(codeToDelete);
