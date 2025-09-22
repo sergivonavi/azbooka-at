@@ -1,9 +1,17 @@
 package ru.azbooka.at.tests.api.auth;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -14,6 +22,8 @@ import ru.azbooka.at.api.models.UpdateUserResponseDto;
 import ru.azbooka.at.api.models.UserResponseDto;
 import ru.azbooka.at.config.TestUserConfig;
 import ru.azbooka.at.tests.BaseTest;
+import ru.azbooka.at.utils.allure.annotations.Layer;
+import ru.azbooka.at.utils.allure.annotations.Microservice;
 
 import static ru.azbooka.at.api.assertions.UserAssertions.assertAvatarChanged;
 import static ru.azbooka.at.api.assertions.UserAssertions.assertEmail;
@@ -28,7 +38,13 @@ import static ru.azbooka.at.data.UserTestData.DEFAULT_LAST_NAME;
 import static ru.azbooka.at.data.UserTestData.getRandomFirstName;
 import static ru.azbooka.at.data.UserTestData.getRandomLastName;
 
-@DisplayName("Информация о пользователе")
+@Owner("sergivonavi")
+@Layer("api")
+@Microservice("UserService")
+@Tag("api")
+@Epic("Пользователи")
+@Feature("Профиль пользователя")
+@DisplayName("API: Информация о пользователе")
 public class UserApiTests extends BaseTest {
     private final TestUserConfig userConfig = ConfigFactory.create(TestUserConfig.class);
 
@@ -56,8 +72,11 @@ public class UserApiTests extends BaseTest {
         updateUser(token, requestDto);
     }
 
+    @Tags({@Tag("regress"), @Tag("smoke")})
     @Test
+    @Story("Получение информации о пользователе")
     @DisplayName("Получение информации о текущем пользователе")
+    @Severity(SeverityLevel.CRITICAL)
     void getUserWithValidTokenTest() {
         UserResponseDto responseDto = getUser(token);
 
@@ -67,8 +86,11 @@ public class UserApiTests extends BaseTest {
         assertLastName(responseDto, DEFAULT_LAST_NAME);
     }
 
+    @Tag("regress")
     @Test
+    @Story("Обновление информации о пользователе")
     @DisplayName("Изменение информации о текущем пользователе без загрузки аватара")
+    @Severity(SeverityLevel.NORMAL)
     void updateUserTest() {
         String newFirstName = getRandomFirstName();
         String newLastName = getRandomLastName();
@@ -84,9 +106,12 @@ public class UserApiTests extends BaseTest {
         assertLastName(userResponseDto, newLastName);
     }
 
+    @Tag("regress")
     @ParameterizedTest(name = "{0}")
     @ValueSource(strings = {"avatar/avatar1.jpg", "avatar/avatar2.jpeg", "avatar/avatar3.webp"})
+    @Story("Обновление информации о пользователе")
     @DisplayName("Загрузка аватара пользователя")
+    @Severity(SeverityLevel.MINOR)
     void uploadAvatarTest(String avatarPath) {
         UserResponseDto initialUserResponseDto = getUser(token);
 
