@@ -21,6 +21,7 @@ public class BooksTestData {
             new Book("svecha-gorela-ouio", "Свеча горела", "Борис Пастернак"),
             new Book("kosmos-etsm", "Космос", "Эстебан Буро")
     );
+    public static final int BOOKS_TOTAL = books.size();
 
     public static String getRandomBookCode() {
         return books.get(new Random().nextInt(books.size())).getCode();
@@ -79,5 +80,14 @@ public class BooksTestData {
         }
 
         return available.get(new Random().nextInt(available.size()));
+    }
+
+    public static List<Book> getBooksByCodes(List<String> codes) {
+        return codes.stream()
+                .map(code -> books.stream()
+                        .filter(book -> book.getCode().equals(code))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException("Book not found: " + code)))
+                .toList();
     }
 }
