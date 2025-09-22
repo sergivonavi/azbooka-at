@@ -5,21 +5,24 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.NoSuchSessionException;
+import ru.azbooka.at.config.BrowserConfig;
 import ru.azbooka.at.utils.report.AllureAttachments;
 
 import static com.codeborne.selenide.WebDriverRunner.hasWebDriverStarted;
 
 public class BaseTest {
+    private static final BrowserConfig browserConfig = ConfigFactory.create(BrowserConfig.class);
 
     @BeforeAll
     static void setUp() {
-        Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
-        Configuration.pageLoadStrategy = "eager";
+        Configuration.browser = browserConfig.browserName();
+        Configuration.browserVersion = browserConfig.browserVersion();
+        Configuration.browserSize = browserConfig.browserSize();
 
         Configuration.baseUrl = "https://azbooka.ru";
         RestAssured.baseURI = "https://api.azbooka.ru";
