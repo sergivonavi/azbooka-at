@@ -14,5 +14,7 @@ public class ErrorAssertions {
 
     public static class Detail {
         public static final String INVALID_CREDENTIALS = "Invalid credentials";
+        public static final String INVALID_TOKEN = "Invalid token supplied";
+        public static final String UNAUTHORIZED = "Unauthorized";
     }
 }
