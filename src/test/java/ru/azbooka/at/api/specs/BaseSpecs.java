@@ -6,7 +6,6 @@ import io.restassured.specification.ResponseSpecification;
 import ru.azbooka.at.utils.allure.report.AllureListener;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.filter.log.LogDetail.ALL;
 import static io.restassured.http.ContentType.JSON;
 
 public class BaseSpecs {
@@ -14,8 +13,7 @@ public class BaseSpecs {
     public static RequestSpecification requestSpec() {
         return given()
                 .filter(AllureListener.withCustomTemplates())
-                .contentType(JSON)
-                .log().all();
+                .contentType(JSON);
     }
 
     public static RequestSpecification requestSpec(String token) {
@@ -26,7 +24,6 @@ public class BaseSpecs {
     public static ResponseSpecification responseSpec(int expectedStatusCode) {
         return new ResponseSpecBuilder()
                 .expectStatusCode(expectedStatusCode)
-                .log(ALL)
                 .build();
     }
 }
