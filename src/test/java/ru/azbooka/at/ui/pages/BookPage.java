@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static ru.azbooka.at.utils.BrowserUtils.open;
 
-public class BookPage extends BasePage {
+public class BookPage extends BasePage<BookPage> {
     private final SelenideElement addFavoriteButton = $x("//button[text()='Добавить в закладки']");
     private final SelenideElement deleteFavoriteButton = $x("//button[text()='Удалить из закладок']");
 

@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static ru.azbooka.at.utils.BrowserUtils.open;
 
-public class ProfilePage extends BasePage {
+public class ProfilePage extends BasePage<ProfilePage> {
     private final SelenideElement pageHeader = $x("//h2");
     private final SelenideElement firstNameInput = $x("//input[@name='first_name']");
     private final SelenideElement lastNameInput = $x("//input[@name='last_name']");

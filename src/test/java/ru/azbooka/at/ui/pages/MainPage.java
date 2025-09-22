@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 
 import static ru.azbooka.at.utils.BrowserUtils.open;
 
-public class MainPage extends BasePage {
+public class MainPage extends BasePage<MainPage> {
 
     @Step("Открываем главную страницу")
     public MainPage openPage() {

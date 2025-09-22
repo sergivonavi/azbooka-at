@@ -9,7 +9,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class BasePage {
+@SuppressWarnings("unchecked")
+public class BasePage<T extends BasePage<T>> {
     private final SelenideElement loginButton = $x("//span[contains(@class, 'fa-user') and not(ancestor::nav)]/ancestor::button");
     private final SelenideElement signOutButton = $x("//header//span[contains(@class,'fa-sign-out') and not(ancestor::nav)]");
     private final SelenideElement favoritesLink = $x("//a[@href='/favorites/' and not(ancestor::nav)]");
@@ -32,17 +33,17 @@ public class BasePage {
     }
 
     @Step("Проверяем, что кнопка \"Вход\" отображается")
-    public BasePage shouldHaveLoginButton() {
+    public T shouldHaveLoginButton() {
         loginButton
                 .shouldBe(visible)
                 .shouldHave(text("Вход"));
-        return this;
+        return (T) this;
     }
 
     @Step("Проверяем, что ссылка на страницу \"Закладки\" отображается")
-    public BasePage shouldHaveFavoritesLink() {
+    public T shouldHaveFavoritesLink() {
         favoritesLink.shouldBe(visible, enabled);
-        return this;
+        return (T) this;
     }
 
     @Step("Нажимаем кнопку \"Закладки\"")
@@ -53,40 +54,40 @@ public class BasePage {
     }
 
     @Step("Проверяем, что значения счетчика закладок равно {count}")
-    public BasePage verifyFavoritesCounterValue(int count) {
+    public T verifyFavoritesCounterValue(int count) {
         favoritesCounter
                 .shouldBe(visible)
                 .shouldHave(text(String.valueOf(count)));
-        return this;
+        return (T) this;
     }
 
     @Step("Проверяем, что счетчик закладок не отображается")
-    public BasePage verifyFavoritesCounterNotDisplayed() {
+    public T verifyFavoritesCounterNotDisplayed() {
         favoritesCounter.shouldNot(exist);
-        return this;
+        return (T) this;
     }
 
     @Step("Проверяем, что ссылка на страницу профиля не отображается")
-    public BasePage shouldNotHaveProfileLink() {
+    public T shouldNotHaveProfileLink() {
         profileLink.shouldNot(exist);
-        return this;
+        return (T) this;
     }
 
     @Step("Проверяем, что ссылка на страницу профиля отображается")
-    public BasePage shouldHaveProfileLink() {
+    public T shouldHaveProfileLink() {
         profileLink.shouldBe(visible);
-        return this;
+        return (T) this;
     }
 
     @Step("Проверяем, что кнопка выхода не отображается")
-    public BasePage shouldNotHaveSignOutButton() {
+    public T shouldNotHaveSignOutButton() {
         signOutButton.shouldNot(exist);
-        return this;
+        return (T) this;
     }
 
     @Step("Проверяем, что кнопка выхода отображается")
-    public BasePage shouldHaveSignOutButton() {
+    public T shouldHaveSignOutButton() {
         signOutButton.should(exist);
-        return this;
+        return (T) this;
     }
 }
