@@ -5,11 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.azbooka.at.config.TestUserConfig;
-import ru.azbooka.at.data.LoginTestData;
 import ru.azbooka.at.tests.BaseTest;
 import ru.azbooka.at.ui.pages.MainPage;
 import ru.azbooka.at.ui.pages.modals.LoginModal;
 
+import static ru.azbooka.at.data.LoginTestData.getRandomEmail;
+import static ru.azbooka.at.data.LoginTestData.getRandomPassword;
 import static ru.azbooka.at.ui.pages.modals.LoginModal.ERROR_INPUT_REQUIRED;
 import static ru.azbooka.at.ui.pages.modals.LoginModal.ERROR_INVALID_CREDENTIALS;
 
@@ -44,7 +45,7 @@ public class LoginUITests extends BaseTest {
     @DisplayName("Авторизация с несуществующим логином")
     void loginWithInvalidEmailTest() {
         loginModal
-                .setEmail(LoginTestData.DATA_INVALID_EMAIL)
+                .setEmail(getRandomEmail())
                 .setPassword(userConfig.password())
                 .clickSubmit();
 
@@ -56,7 +57,7 @@ public class LoginUITests extends BaseTest {
     void loginWithInvalidPasswordTest() {
         loginModal
                 .setEmail(userConfig.email())
-                .setPassword(LoginTestData.DATA_INVALID_PASSWORD)
+                .setPassword(getRandomPassword())
                 .clickSubmit();
 
         loginModal.verifyModalErrorMessage(ERROR_INVALID_CREDENTIALS);

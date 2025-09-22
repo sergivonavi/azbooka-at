@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import ru.azbooka.at.api.endpoints.auth.LoginApi;
 import ru.azbooka.at.api.models.FavoritesResponseDto;
 import ru.azbooka.at.api.models.LoginResponseDto;
-import ru.azbooka.at.data.BooksTestData;
 import ru.azbooka.at.extensions.WithLogin;
 import ru.azbooka.at.tests.BaseTest;
 import ru.azbooka.at.ui.pages.BookPage;
@@ -19,6 +18,7 @@ import static ru.azbooka.at.api.assertions.FavoritesAssertions.assertFavoritesCo
 import static ru.azbooka.at.api.endpoints.favorites.FavoritesApi.getFavorites;
 import static ru.azbooka.at.api.helpers.FavoritesApiHelper.addListToFavorites;
 import static ru.azbooka.at.api.helpers.FavoritesApiHelper.deleteAllFavorites;
+import static ru.azbooka.at.data.BooksTestData.BOOKS_TOTAL;
 import static ru.azbooka.at.data.BooksTestData.getRandomBookCode;
 import static ru.azbooka.at.data.BooksTestData.getRandomBookCodeNotIn;
 import static ru.azbooka.at.data.BooksTestData.getRandomBookCodes;
@@ -68,7 +68,7 @@ public class AddFavoritesUITests extends BaseTest {
     @WithLogin
     @DisplayName("Добавление книги в закладки, когда список закладок не пустой")
     void addBookToFavoritesWhenListNotEmptyTest() {
-        List<String> list = getRandomBookCodes(1, BooksTestData.BOOKS_TOTAL - 1);
+        List<String> list = getRandomBookCodes(1, BOOKS_TOTAL - 1);
         String codeToAdd = getRandomBookCodeNotIn(list);
 
         addListToFavorites(token, list);
