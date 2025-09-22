@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import ru.azbooka.at.api.endpoints.auth.LoginApi;
 import ru.azbooka.at.api.models.LoginResponseDto;
 
-import static com.codeborne.selenide.Selenide.open;
+import static ru.azbooka.at.utils.BrowserUtils.open;
 
 public class LoginExtension implements BeforeEachCallback {
 
@@ -16,6 +16,10 @@ public class LoginExtension implements BeforeEachCallback {
     public void beforeEach(ExtensionContext context) {
         open("/images/article/detail/back-arr.png");
 
+        setAuthToken();
+    }
+
+    private void setAuthToken() {
         LoginResponseDto loginResponseDto = LoginApi.loginWithConfiguredUser();
         String token = loginResponseDto.getAccessToken();
         Selenide.localStorage().setItem("token", token);

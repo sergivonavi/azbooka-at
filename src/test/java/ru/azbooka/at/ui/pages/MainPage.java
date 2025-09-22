@@ -2,7 +2,7 @@ package ru.azbooka.at.ui.pages;
 
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Selenide.open;
+import static ru.azbooka.at.utils.BrowserUtils.open;
 
 public class MainPage extends BasePage {
 
