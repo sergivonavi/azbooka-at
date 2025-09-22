@@ -1,4 +1,4 @@
-package ru.azbooka.at.utils.report;
+package ru.azbooka.at.utils.allure.report;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 

@@ -14,7 +14,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import ru.azbooka.at.config.BrowserConfig;
 import ru.azbooka.at.config.RemoteConfig;
 import ru.azbooka.at.utils.RemoteUtils;
-import ru.azbooka.at.utils.report.AllureAttachments;
+import ru.azbooka.at.utils.allure.report.AllureAttachments;
 
 import java.util.Map;
 
