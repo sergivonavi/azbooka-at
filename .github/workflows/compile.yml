@@ -27,14 +27,17 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
-          cache: maven
+          cache: gradle
 
-      - name: Cache Maven packages
+      - name: Cache packages
         uses: actions/cache@v4
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle
 
-      - name: Compile Tests
-        run: mvn -B clean test-compile
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Compile tests
+        run: ./gradlew clean testClasses --no-daemon
