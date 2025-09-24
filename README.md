@@ -66,7 +66,7 @@
 <a href="https://junit.org/junit5/"><img src="/assets/img/logo/junit5.svg" alt="JUnit5" style="width:5%;"></a>
 <a href="https://selenide.org/"><img src="/assets/img/logo/selenide.svg" alt="Selenide" style="width:5%;"></a>
 <a href="https://rest-assured.io/"><img src="/assets/img/logo/rest-assured.svg" alt="REST Assured" style="width:5%;"></a>
-<a href="https://maven.apache.org/"><img src="/assets/img/logo/maven.svg" alt="Maven" style="width:5%;"></a>
+<a href="https://gradle.org//"><img src="/assets/img/logo/gradle.svg" alt="Gradle" style="width:5%;"></a>
 <a href="https://git-scm.com/"><img src="/assets/img/logo/git.svg" alt="Git" style="width:5%;"></a>
 <a href="https://github.com/"><img src="/assets/img/logo/github.svg" alt="GitHub" style="width:5%;"></a>
 <a href="https://www.jenkins.io/"><img src="/assets/img/logo/jenkins.svg" alt="Jenkins" style="width:5%;"></a>
@@ -77,22 +77,22 @@
 </p>
 
 * **Среда разработки**
-    * [Intellij IDEA](https://www.jetbrains.com/idea/)
+  * [Intellij IDEA](https://www.jetbrains.com/idea/)
 
 * **Язык программирования**
-    * [Java](https://www.java.com/)
+  * [Java](https://www.java.com/)
 
 * **Фреймворки для тестирования**
-    * [JUnit 5](https://junit.org/) — современный тестовый фреймворк с поддержкой аннотаций, параметризации и расширений
-    * [Selenide](https://selenide.org/) — лаконичная обёртка над Selenium WebDriver для UI-тестов
-    * [REST Assured](https://rest-assured.io/) — декларативное тестирование REST API
+  * [JUnit 5](https://junit.org/) — современный тестовый фреймворк с поддержкой аннотаций, параметризации и расширений
+  * [Selenide](https://selenide.org/) — лаконичная обёртка над Selenium WebDriver для UI-тестов
+  * [REST Assured](https://rest-assured.io/) — декларативное тестирование REST API
 
 * **Сборка и управление зависимостями**
-    * [Maven](https://maven.apache.org/) — сборка, управление зависимостями и настройка запуска тестов
+  * [Gradle](https://gradle.org) — сборка, управление зависимостями и настройка запуска тестов
 
 * **Контроль версий и репозиторий**
-    * [Git](https://git-scm.com/) — система контроля версий
-    * [GitHub](https://github.com/) — хостинг и управление проектом
+  * [Git](https://git-scm.com/) — система контроля версий
+  * [GitHub](https://github.com/) — хостинг и управление проектом
 
 * **Инфраструктура и CI/CD**
   * [GitHub Actions](https://github.com/features/actions) — автоматизация рабочих процессов и CI/CD прямо в GitHub.
@@ -100,9 +100,9 @@
   * [Selenoid](https://aerokube.com/selenoid/) — лёгкая и быстрая инфраструктура для параллельного запуска браузеров в Docker
 
 * **Отчётность и интеграции**
-    * [Allure Report](https://allurereport.org/) — детализированные отчёты о тестовых прогонах
-    * [Allure TestOps](https://qameta.io/testops/) — управление тестами и аналитика результатов
-    * [Telegram](https://core.telegram.org/bots) — интеграция через бота для оперативных уведомлений о статусе прогонов
+  * [Allure Report](https://allurereport.org/) — детализированные отчёты о тестовых прогонах
+  * [Allure TestOps](https://qameta.io/testops/) — управление тестами и аналитика результатов
+  * [Telegram](https://core.telegram.org/bots) — интеграция через бота для оперативных уведомлений о статусе прогонов
 
 ---
 
@@ -185,8 +185,8 @@ ___
 
 ```mermaid
 flowchart TD
-    A{Выбор окружения} --> |по умолчанию| B[Локальный запуск]
-    A --> |remote| C[Запуск в Selenoid]
+    A{Выбор окружения} --> |remote=false| B[Локальный запуск]
+    A --> |remote=true| C[Запуск в Selenoid]
 
     C --> C1[remote.domain]
     C --> C2[remote.username]
@@ -218,20 +218,20 @@ flowchart TD
 ```
 
 ```bash
-mvn clean test -P {profile} -Dgroups={tags} \
+gradle clean test -Premote={true|false} -PincludeTags={tags} \
   -Dremote.domain={domain} -Dremote.username={username} -Dremote.password={password} \
   -Dbrowser.name={name} -Dbrowser.version={version} -Dbrowser.size={size} \
   -Dtest.email={email} -Dtest.password={password}
 ```
 
-- `profile` — выбор окружения (опционально):
-    - `remote` - запуск UI-тестов в Selenoid
-    - по умолчанию тесты запускаются локально
+- `remote` — выбор окружения (опционально):
+  - `true` — запуск тестов в Selenoid
+  - `false` — запуск тестов локально (по умолчанию)
 - `groups` — теги тестов для запуска:
     - `ui` — UI-тесты
     - `api` — API-тесты
     - `regress` — регрессионные тесты
-    - `smoke` — smoke тесты
+    - `smoke` — smoke-тесты
 - `remote.*` — данные для авторизации на удалённом стенде:
     - `username`
     - `password`
@@ -249,15 +249,15 @@ mvn clean test -P {profile} -Dgroups={tags} \
 1\. Формирование Allure-отчета:
 
 ```bash
-mvn allure:report
+gradle allureReport
 ```
 
-По умолчанию отчет генерируется в папку `target/allure-results`.
+По умолчанию отчет генерируется в папку `build/allure-results`.
 
 2\. Формирование Allure-отчета, запуск локального HTTP-сервера и открытие в браузере:
 
 ```bash
-mvn allure:serve
+gradle allureServe
 ```
 </details>
 
