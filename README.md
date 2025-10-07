@@ -281,7 +281,7 @@ gradle clean test -Premote={true|false} -PincludeTags={tags} \
 gradle clean test
 ```
 
-## Сборка в Jenkins
+## Сборка в [Jenkins](https://jenkins.autotests.cloud/job/C36-NeverFlyDog-Azbooka/)
 
 [Jenkins](https://www.jenkins.io/) — инструмент для автоматизации сборки, тестирования и деплоя проектов.
 
@@ -300,7 +300,7 @@ gradle clean test
 
 После завершения сборки автоматически формируется Allure-отчёт, и обновляются результаты прохождения тестов в Allure TestOps. 
 
-## Интеграция с Allure Report
+## Интеграция с [Allure Report](https://jenkins.autotests.cloud/job/C36-NeverFlyDog-Azbooka/allure/)
 
 [Allure Report](https://allure.qatools.ru/) — инструмент для визуализации результатов тестов, который формирует наглядные и подробные отчёты.
 
@@ -318,7 +318,7 @@ gradle clean test
 
 <img src="/assets/img/screenshots/allure_report_2.png" alt="Allure Test Details">
 
-## Интеграция с Allure TestOps
+## Интеграция с [Allure TestOps](https://allure.autotests.cloud/project/4941/)
 
 [Allure TestOps](https://qameta.io/testops/) — облачная платформа для управления тестами и анализа результатов.
 
